@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "692646172086",
+    "project_id": "share-a-shabbat",
+    "storage_bucket": "share-a-shabbat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692646172086:android:86a541c4e68079e90a9d17",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLhjg4nXegB93URxVNiVViaRUxORDnxdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
