@@ -38,16 +38,14 @@ public class SignInActivity extends AppCompatActivity {
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
                             // Fetch user details from Firestore
-                            db.collection("guests").whereEqualTo("Username", email).get()
+                            db.collection("guests").whereEqualTo("username", email).get()
                                     .addOnCompleteListener(task1 -> {
                                         if (task1.isSuccessful() && !task1.getResult().isEmpty()) {
                                             for (QueryDocumentSnapshot document : task1.getResult()) {
                                                 Guest guest = document.toObject(Guest.class);
                                                 Intent mainActivityIntent = new Intent(SignInActivity.this, MainActivity.class);
-                                                mainActivityIntent.putExtra("guestImage", guest.getGuestImage());
                                                 mainActivityIntent.putExtra("name", guest.getName());
                                                 mainActivityIntent.putExtra("age", guest.getAge());
-                                                mainActivityIntent.putExtra("sex", guest.getSex());
                                                 startActivity(mainActivityIntent);
                                                 finish();
                                             }

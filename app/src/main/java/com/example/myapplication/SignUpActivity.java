@@ -9,7 +9,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,14 +29,10 @@ public class SignUpActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
 
     private EditText usernameEditText, passwordEditText, confirmPasswordEditText, nameEditText, ageEditText, sexEditText;
-    private CheckBox termsCheckBox;
-    private Button signUpButton, signInButton, uploadImageButton;
-    private ImageView logoImageView;
+    private RadioGroup userMode;
 
     private FirebaseAuth auth;
     private FirebaseFirestore db;
-    private FirebaseStorage storage;
-    private Uri imageUri;  // URI for picked image
 
 
     @Override
@@ -44,23 +44,15 @@ public class SignUpActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance();
-
-        logoImageView = findViewById(R.id.logoImageView);
-        Glide.with(this).load(R.drawable.shareashabatlogo).into(logoImageView);
 
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
         nameEditText = findViewById(R.id.nameEditText);
         ageEditText = findViewById(R.id.ageEditText);
-        sexEditText = findViewById(R.id.sexEditText);
-        termsCheckBox = findViewById(R.id.termsCheckBox);
-        signUpButton = findViewById(R.id.signUpButton);
-        signInButton = findViewById(R.id.signInButton);
-        uploadImageButton = findViewById(R.id.uploadImageButton);
-
-        uploadImageButton.setOnClickListener(v -> pickImage());
+        userMode = findViewById(R.id.modeRadioGroup);
+        Button signUpButton = findViewById(R.id.signUpButton);
+        Button signInButton = findViewById(R.id.signInButton);
 
         signUpButton.setOnClickListener(v -> {
             String username = usernameEditText.getText().toString().trim();
@@ -68,21 +60,16 @@ public class SignUpActivity extends AppCompatActivity {
             String confirmPassword = confirmPasswordEditText.getText().toString().trim();
             String name = nameEditText.getText().toString().trim();
             int age = Integer.parseInt(ageEditText.getText().toString().trim());
-            String sex = sexEditText.getText().toString().trim();
+            int userModeId = userMode.getCheckedRadioButtonId();
+            RadioButton userModeSelected = findViewById(userModeId);
+            GuestType guestType = GuestType.getGuestType(userModeSelected.getText().toString().toLowerCase());
 
             if (!password.equals(confirmPassword)) {
                 Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_LONG).show();
                 return;
             }
-            if (!termsCheckBox.isChecked()) {
-                Toast.makeText(this, "You must agree to the terms!", Toast.LENGTH_LONG).show();
-                return;
-            }
-            if (imageUri != null) {
-                uploadImageAndRegister(username, password, name, age, sex);
-            } else {
-                Toast.makeText(this, "Please select an image.", Toast.LENGTH_SHORT).show();
-            }
+
+            register(username, password, name, age, guestType);
 
         });
 
@@ -91,36 +78,14 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void pickImage() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
-            Glide.with(this).load(imageUri).into(logoImageView);
-        }
-    }
-
-    private void uploadImageAndRegister(String username, String password, String name, int age, String sex) {
-        StorageReference fileRef = storage.getReference().child("images/" + System.currentTimeMillis() + ".jpg");
-        fileRef.putFile(imageUri).addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
-            String imageUrl = uri.toString();
-            registerNewGuest(username, password, name, age, sex, imageUrl);
-        })).addOnFailureListener(e -> Toast.makeText(SignUpActivity.this, "Failed to upload image.", Toast.LENGTH_SHORT).show());
-    }
-
-    private void registerNewGuest(String username, String password, String name, int age, String sex, String guestImage) {
+    private void register(String username, String password, String name, int age, GuestType guestType) {
         // Assume validation passes
         auth.createUserWithEmailAndPassword(username, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         Log.d("SignUpActivity", "User creation successful");
 
-                        Guest newGuest = new Guest(guestImage, name, age, username, password, sex);
+                        Guest newGuest = new Guest(name, age, username, guestType);
 
                         db.collection("guests").document(username).set(newGuest)
                                 .addOnSuccessListener(aVoid -> {
@@ -130,10 +95,8 @@ public class SignUpActivity extends AppCompatActivity {
                                     Intent mainActivityIntent = new Intent(SignUpActivity.this, MainActivity.class);
 
                                     // Put guest details as extras
-                                    mainActivityIntent.putExtra("guestImage", guestImage);
                                     mainActivityIntent.putExtra("name", name);
                                     mainActivityIntent.putExtra("age", age);
-                                    mainActivityIntent.putExtra("sex", sex);
 
                                     // Start MainActivity
                                     startActivity(mainActivityIntent);
@@ -145,6 +108,9 @@ public class SignUpActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(SignUpActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                     }
+                })
+                .addOnFailureListener(this, task -> {
+                    Toast.makeText(SignUpActivity.this, "Signup Failed " + task.getMessage(), Toast.LENGTH_LONG).show();
                 });
     }
 

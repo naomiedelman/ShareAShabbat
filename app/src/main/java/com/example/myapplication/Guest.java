@@ -1,72 +1,45 @@
 package com.example.myapplication;
-public class Guest {
-    private String GuestImage;
-    private String Name;
-    private int Age;
-    private String Username;
-    private String Password;
-    private String Sex;
 
-    // No-argument constructor required for Firebase deserialization
+public class Guest {
+    private String name;
+    private int age;
+    private String username;
+    private GuestType guestType;
+
     public Guest() {
     }
 
-    // Argument constructor for creating new instances
-    public Guest(String guestImage, String name, int age, String username, String password, String sex) {
-        this.GuestImage = guestImage;
-        this.Name = name;
-        this.Age = age;
-        this.Username = username;
-        this.Password = password;
-        this.Sex = sex;
-    }
-
-    // Getters and setters
-    public String getGuestImage() {
-        return GuestImage;
-    }
-
-    public void setGuestImage(String guestImage) {
-        GuestImage = guestImage;
+    public Guest(String name, int age, String username, GuestType guestType) {
+        this.name = name;
+        this.age = age;
+        this.username = username;
+        this.guestType = guestType;
     }
 
     public String getName() {
-        return Name;
+        return this.name;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public String getAge() {
+        return Integer.toString(this.age);
     }
 
-    public int getAge() {
-        return Age;
-    }
-
-    public void setAge(int age) {
-        Age = age;
+    public int getAgeAsInt() {
+        return this.age;
     }
 
     public String getUsername() {
-        return Username;
+        return this.username;
     }
 
-    public void setUsername(String username) {
-        Username = username;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
-
-    public String getSex() {
-        return Sex;
-    }
-
-    public void setSex(String sex) {
-        Sex = sex;
+    public String getGuestType() {
+        switch (this.guestType) {
+            case GUEST:
+                return "GUEST";
+            case HOST:
+                return "HOST";
+            default:
+                return "";
+        }
     }
 }

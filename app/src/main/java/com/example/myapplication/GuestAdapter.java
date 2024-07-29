@@ -50,10 +50,9 @@ public class GuestAdapter extends RecyclerView.Adapter<GuestAdapter.GuestViewHol
     @Override
     public void onBindViewHolder(@NonNull GuestViewHolder holder, int position) {
         Guest guest = guests.get(position);
-        Glide.with(holder.itemView.getContext()).load(guest.getGuestImage()).into(holder.guestImage);
+        //Glide.with(holder.itemView.getContext()).load(guest.getGuestImage()).into(holder.guestImage);
         holder.name.setText(guest.getName());
         holder.age.setText(String.valueOf(guest.getAge()));
-        holder.sex.setText(guest.getSex());
     }
 
     @Override
