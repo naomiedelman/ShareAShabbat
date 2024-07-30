@@ -1,29 +1,19 @@
 package com.example.myapplication;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import com.bumptech.glide.Glide;
+
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 public class SignUpActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -92,7 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     Toast.makeText(SignUpActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
 
                                     // Create the Intent to start MainActivity
-                                    Intent mainActivityIntent = new Intent(SignUpActivity.this, MainActivity.class);
+                                    Intent mainActivityIntent = new Intent(SignUpActivity.this, UsersActivity.class);
 
                                     // Put guest details as extras
                                     mainActivityIntent.putExtra("name", name);

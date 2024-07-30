@@ -1,16 +1,29 @@
 package com.example.myapplication;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.json.JSONException;
 
 public class SignInActivity extends AppCompatActivity {
     private EditText usernameEditText, passwordEditText;
@@ -37,22 +50,26 @@ public class SignInActivity extends AppCompatActivity {
             auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
-                            // Fetch user details from Firestore
-                            db.collection("guests").whereEqualTo("username", email).get()
-                                    .addOnCompleteListener(task1 -> {
-                                        if (task1.isSuccessful() && !task1.getResult().isEmpty()) {
-                                            for (QueryDocumentSnapshot document : task1.getResult()) {
-                                                Guest guest = document.toObject(Guest.class);
-                                                Intent mainActivityIntent = new Intent(SignInActivity.this, MainActivity.class);
-                                                mainActivityIntent.putExtra("name", guest.getName());
-                                                mainActivityIntent.putExtra("age", guest.getAge());
-                                                startActivity(mainActivityIntent);
-                                                finish();
+                            String userEmail = auth.getCurrentUser().getEmail();
+                            if (userEmail == null) {
+                                userEmail = "";
+                            }
+                            DocumentReference docRef = db.collection("guests").document(userEmail);
+                            docRef.get().addOnSuccessListener(documentSnapshot -> {
+                                        Guest guest = documentSnapshot.toObject(Guest.class);
+                                        Intent toMenu = new Intent(this, MenuActivity.class);
+                                        Bundle bundle = new Bundle();
+                                        try {
+                                            if (guest != null) {
+                                                bundle.putString("guest", guest.serialize().toString());
+                                                toMenu.putExtra("guest", bundle);
+                                                startActivity(toMenu);
                                             }
-                                        } else {
-                                            Toast.makeText(SignInActivity.this, "Failed to retrieve user details.", Toast.LENGTH_SHORT).show();
+                                        } catch (JSONException e) {
+                                            throw new RuntimeException(e);
                                         }
-                                    });
+                                    }
+                            );
                         } else {
                             Toast.makeText(SignInActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
