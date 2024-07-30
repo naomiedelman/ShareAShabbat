@@ -21,7 +21,7 @@ public class UsersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.users);
 
         recyclerView = findViewById(R.id.rvGuest);
         guestAdapter = new GuestAdapter();

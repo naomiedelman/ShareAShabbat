@@ -30,7 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FirebaseApp.initializeApp(this);  // Initialize Firebase
 
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.sign_up);
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
