@@ -10,6 +10,7 @@ public class Guest {
     private int age;
     private String username;
     private GuestType guestType;
+    private String location;
 
     public Guest() {
     }
@@ -40,6 +41,7 @@ public class Guest {
     public String getUsername() {
         return this.username;
     }
+
 
     @PropertyName("guestType")
     public String getGuestType() {

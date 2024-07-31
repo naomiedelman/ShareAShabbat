@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -9,11 +11,18 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.io.IOException;
+import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -23,6 +32,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private FirebaseFirestore db;
+
+    private FusedLocationProviderClient fusedLocationClient;
+    private Address location;
 
 
     @Override
@@ -53,6 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
             int userModeId = userMode.getCheckedRadioButtonId();
             RadioButton userModeSelected = findViewById(userModeId);
             GuestType guestType = GuestType.getGuestType(userModeSelected.getText().toString().toLowerCase());
+
 
             if (!password.equals(confirmPassword)) {
                 Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_LONG).show();

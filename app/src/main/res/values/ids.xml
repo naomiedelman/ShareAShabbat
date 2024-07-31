@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="rvGuest" type="id"/>
-    <item name="g_Image" type="id"/>
-    <item name="g_Name" type="id"/>
-    <item name="g_Age" type="id"/>
-    <item name="g_Sex" type="id"/>
+    <item name="user_image" type="id"/>
+    <item name="user_name" type="id"/>
+    <item name="user_age" type="id"/>
+    <item name="user_location" type="id"/>
 </resources>

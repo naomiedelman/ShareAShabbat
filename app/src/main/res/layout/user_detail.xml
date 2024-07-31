@@ -26,7 +26,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/g_Image"
+                android:id="@+id/user_image"
                 android:layout_width="100dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="20dp"
@@ -38,41 +38,26 @@
                 app:srcCompat="@drawable/avatar1" />
 
             <TextView
-                android:id="@+id/g_Name"
+                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
-                android:text="TextView"
                 android:textColor="@color/colorOnPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/g_Image"
+                app:layout_constraintStart_toEndOf="@+id/user_image"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/g_Age"
+                android:id="@+id/user_age"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="15dp"
-                android:text="TextView"
                 android:textColor="@color/colorOnPrimary"
-                app:layout_constraintStart_toEndOf="@+id/g_Image"
-                app:layout_constraintTop_toBottomOf="@+id/g_Name" />
-
-            <TextView
-                android:id="@+id/g_Sex"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="TextView"
-                android:textColor="@color/colorOnPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/g_Image"
-                app:layout_constraintTop_toBottomOf="@+id/g_Age" />
+                app:layout_constraintStart_toEndOf="@+id/user_image"
+                app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

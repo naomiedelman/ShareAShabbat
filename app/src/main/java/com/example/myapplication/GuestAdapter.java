@@ -25,14 +25,14 @@ public class GuestAdapter extends RecyclerView.Adapter<GuestAdapter.GuestViewHol
         public ImageView guestImage;
         public TextView name;
         public TextView age;
-        public TextView sex;
+        public TextView location;
 
         public GuestViewHolder(@NotNull View itemView) {
             super(itemView);
-            guestImage = itemView.findViewById(R.id.g_Image);
-            name = itemView.findViewById(R.id.g_Name);
-            age = itemView.findViewById(R.id.g_Age);
-            sex = itemView.findViewById(R.id.g_Sex);
+            guestImage = itemView.findViewById(R.id.user_image);
+            name = itemView.findViewById(R.id.user_name);
+            age = itemView.findViewById(R.id.user_age);
+            location = itemView.findViewById(R.id.user_location);
         }
     }
 
