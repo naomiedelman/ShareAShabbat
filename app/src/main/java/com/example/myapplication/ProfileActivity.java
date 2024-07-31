@@ -49,7 +49,7 @@ public class ProfileActivity extends AppCompatActivity {
             nameAge.setText("");
         }
 
-        ConstraintLayout inner = findViewById(R.id.constraintLayout);
+        ConstraintLayout inner = findViewById(R.id.menu);
         FloatingActionButton homeButton = inner.findViewById(R.id.home_button);
         homeButton.setOnClickListener(listener -> {
             Intent toMenu = new Intent(this, MenuActivity.class);

@@ -31,7 +31,7 @@ public class UsersActivity extends AppCompatActivity {
         recyclerView.setAdapter(userAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ConstraintLayout inner = findViewById(R.id.constraintLayout);
+        ConstraintLayout inner = findViewById(R.id.menu);
         FloatingActionButton homeButton = inner.findViewById(R.id.home_button);
         homeButton.setOnClickListener(listener -> {
             Intent toMenu = new Intent(this, MenuActivity.class);

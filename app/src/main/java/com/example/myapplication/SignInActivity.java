@@ -53,6 +53,10 @@ public class SignInActivity extends AppCompatActivity {
                                                 bundle.putString("user", user.serialize().toString());
                                                 toMenu.putExtra("user", bundle);
                                                 startActivity(toMenu);
+                                            } else {
+                                                FirebaseAuth.getInstance().signOut();
+                                                Intent signUp = new Intent(this, SignUpActivity.class);
+                                                startActivity(signUp);
                                             }
                                         } catch (JSONException e) {
                                             throw new RuntimeException(e);
