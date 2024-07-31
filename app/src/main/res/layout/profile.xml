@@ -6,95 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-    <ImageView
-        android:id="@+id/arrow3"
-        android:layout_width="17dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="102dp"
-        android:layout_marginEnd="46dp"
-        android:layout_marginBottom="52dp"
-        app:layout_constraintBottom_toTopOf="@+id/menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Location"
-        app:layout_constraintTop_toBottomOf="@+id/arrow2"
-        app:srcCompat="@drawable/arrow" />
-
-    <TextView
-        android:id="@+id/Location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="105dp"
-        android:layout_marginEnd="230dp"
-        android:layout_marginBottom="53dp"
-        android:text="Location"
-        android:textColor="@color/colorSecondary"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/menu"
-        app:layout_constraintEnd_toStartOf="@+id/arrow3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FoodPreferences" />
-
-    <ImageView
-        android:id="@+id/arrow2"
-        android:layout_width="17dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="155dp"
-        android:layout_marginTop="103dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginBottom="177dp"
-        app:layout_constraintBottom_toTopOf="@+id/menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/FoodPreferences"
-        app:layout_constraintTop_toBottomOf="@+id/arrow1"
-        app:srcCompat="@drawable/arrow" />
-
-    <TextView
-        android:id="@+id/FoodPreferences"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="106dp"
-        android:layout_marginEnd="219dp"
-        android:layout_marginBottom="185dp"
-        android:text="Food Preferences"
-        android:textColor="@color/colorSecondary"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditProfile" />
-
-    <ImageView
-        android:id="@+id/arrow1"
-        android:layout_width="16dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="154dp"
-        android:layout_marginEnd="46dp"
-        android:layout_marginBottom="318dp"
-        app:layout_constraintBottom_toTopOf="@+id/menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/EditProfile"
-        app:layout_constraintTop_toBottomOf="@+id/star2"
-        app:srcCompat="@drawable/arrow" />
-
-    <TextView
-        android:id="@+id/EditProfile"
-        android:layout_width="138dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="153dp"
-        android:layout_marginBottom="326dp"
-        android:text="Edit Profile"
-        android:textColor="@color/colorSecondary"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/menu"
-        app:layout_constraintEnd_toStartOf="@+id/arrow1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AccountSettings" />
-
     <TextView
         android:id="@+id/AccountSettings"
         android:layout_width="wrap_content"
@@ -110,7 +21,7 @@
         app:layout_constraintBottom_toTopOf="@+id/menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/leahcohenprofilepic" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_picture" />
 
     <ImageView
         android:id="@+id/star3"
@@ -144,31 +55,13 @@
         android:id="@+id/star1"
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="76dp"
         android:layout_marginBottom="490dp"
         app:layout_constraintBottom_toTopOf="@+id/menu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/SuperGuest"
         app:layout_constraintTop_toBottomOf="@+id/name_age"
         app:srcCompat="@drawable/star" />
-
-    <TextView
-        android:id="@+id/SuperGuest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="107dp"
-        android:layout_marginBottom="505dp"
-        android:text="Super Guest"
-        android:textColor="@color/colorSecondary"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/leahcohenprofilepic"
-        app:layout_constraintTop_toBottomOf="@+id/name_age" />
 
     <TextView
         android:id="@+id/name_age"
@@ -177,19 +70,16 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="88dp"
-        android:layout_marginBottom="13dp"
-        android:text="Leah Cohen, 28"
         android:textColor="@color/colorSecondary"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/SuperGuest"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.551"
-        app:layout_constraintStart_toEndOf="@+id/leahcohenprofilepic"
+        app:layout_constraintStart_toEndOf="@+id/profile_picture"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/leahcohenprofilepic"
+        android:id="@+id/profile_picture"
         android:layout_width="127dp"
         android:layout_height="128dp"
         android:layout_marginStart="50dp"
@@ -202,7 +92,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.046"
-        app:srcCompat="@drawable/leahcohenprofilepic" />
+        app:srcCompat="@drawable/avatar2" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/menu"
@@ -214,45 +104,28 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/homebutton"
+            android:id="@+id/home_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
-            android:layout_marginEnd="22dp"
             android:clickable="true"
             android:tint="@color/colorSecondary"
             app:backgroundTint="@color/colorPrimaryVariant"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/preferencesButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/homebutton"
             app:tint="@color/colorSecondary" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/preferencesButton"
+            android:id="@+id/profile_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            app:backgroundTint="@color/colorPrimaryVariant"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/profileButton"
-            app:layout_constraintStart_toEndOf="@+id/homebutton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/preferences"
-            app:tint="@color/colorSecondary" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/profileButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
             android:layout_marginEnd="100dp"
             android:clickable="true"
             app:backgroundTint="@color/colorSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/preferencesButton"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/profile"
             app:tint="@color/colorOnSecondary" />
