@@ -18,6 +18,7 @@ public class MenuActivity extends AppCompatActivity {
         viewUsersButton.setOnClickListener(listener -> {
             Intent viewUsersActivity = new Intent(this, UsersActivity.class);
             startActivity(viewUsersActivity);
+            finish();
         });
         Button profileButton = findViewById(R.id.profile_button);
         profileButton.setOnClickListener(listener -> {
@@ -33,6 +34,7 @@ public class MenuActivity extends AppCompatActivity {
                 }
             }
             startActivity(profileActivity);
+            finish();
         });
     }
 }

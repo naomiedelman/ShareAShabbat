@@ -14,32 +14,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
-    private List<User> users;
+    public List<User> userStore;
 
-    public void setGuests(List<User> users) {
-        this.users = users;
-        notifyDataSetChanged();  // Notify the adapter that the data has changed
+    public void setUsers(ArrayList<User> users) {
+        this.userStore = new ArrayList<User>();
+        this.userStore.addAll(users);
+        notifyItemRangeInserted(0, this.userStore.size());
     }
 
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
-        public ImageView guestImage;
+        public ImageView avatar;
         public TextView name;
         public TextView age;
-        public TextView location;
 
         public UserViewHolder(@NotNull View itemView) {
             super(itemView);
-            guestImage = itemView.findViewById(R.id.user_image);
+            avatar = itemView.findViewById(R.id.user_image);
             name = itemView.findViewById(R.id.user_name);
             age = itemView.findViewById(R.id.user_age);
-            location = itemView.findViewById(R.id.user_location);
         }
     }
 
-    public UserAdapter() {
-        users = new ArrayList<>();
-         }
+    public UserAdapter(ArrayList<User> userList) {
+        this.userStore = userList;
+    }
 
     @NonNull
     @Override
@@ -50,8 +49,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        User user = users.get(position);
-        //Glide.with(holder.itemView.getContext()).load(guest.getGuestImage()).into(holder.guestImage);
+        User user = this.userStore.get(position);
         holder.name.setText(user.getName());
         holder.age.setText(String.valueOf(user.getAge()));
         int avatar;
@@ -83,12 +81,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             default:
                 avatar = R.drawable.avatar1;
         }
-        holder.guestImage.setImageResource(avatar);
+        holder.avatar.setImageResource(avatar);
     }
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return this.userStore.size();
     }
 
 }

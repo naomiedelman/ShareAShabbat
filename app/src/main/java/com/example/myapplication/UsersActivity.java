@@ -18,7 +18,7 @@ import java.util.List;
 
 public class UsersActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private UserAdapter userAdapter;
+    public UserAdapter userAdapter;
     private FirebaseFirestore db;
 
     @Override
@@ -26,36 +26,38 @@ public class UsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.users);
 
-        recyclerView = findViewById(R.id.rvUser);
-        userAdapter = new UserAdapter();
-        recyclerView.setAdapter(userAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        db = FirebaseFirestore.getInstance();
+        fetchUsers();
+
+        recyclerView = findViewById(R.id.rvUsers);
 
         ConstraintLayout inner = findViewById(R.id.menu);
+        userAdapter = new UserAdapter(new ArrayList<>());
+        recyclerView.setAdapter(userAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         FloatingActionButton homeButton = inner.findViewById(R.id.home_button);
         homeButton.setOnClickListener(listener -> {
             Intent toMenu = new Intent(this, MenuActivity.class);
             startActivity(toMenu);
+            finish();
         });
         FloatingActionButton profileButton = inner.findViewById(R.id.profile_button);
         profileButton.setOnClickListener(listener -> {
             Intent toMenu = new Intent(this, ProfileActivity.class);
             startActivity(toMenu);
+            finish();
         });
-
-
-        db = FirebaseFirestore.getInstance();
-        fetchGuests();
     }
 
-    private void fetchGuests() {
+    private void fetchUsers() {
         db.collection("users").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                List<User> userList = new ArrayList<>();
+                ArrayList<User> userList = new ArrayList<User>();
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    userList.add(document.toObject(User.class));
+                    User user = document.toObject(User.class);
+                    userList.add(user);
                 }
-                userAdapter.setGuests(userList);
+                userAdapter.setUsers(userList);
             } else {
                 Log.e("MainActivity", "Error fetching guests: ", task.getException());
             }

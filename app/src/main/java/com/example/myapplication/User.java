@@ -60,7 +60,7 @@ public class User {
 
 
     @PropertyName("userType")
-    public String getGuestType() {
+    public String getUserType() {
         switch (this.userType) {
             case GUEST:
                 return "GUEST";

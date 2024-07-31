@@ -29,5 +29,6 @@ public class LoadingActivity extends AppCompatActivity {
             toActivity = new Intent(this, SignInActivity.class);
         }
         startActivity(toActivity);
+        finish();
     }
 }

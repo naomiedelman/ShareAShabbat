@@ -54,11 +54,13 @@ public class ProfileActivity extends AppCompatActivity {
         homeButton.setOnClickListener(listener -> {
             Intent toMenu = new Intent(this, MenuActivity.class);
             startActivity(toMenu);
+            finish();
         });
         FloatingActionButton profileButton = inner.findViewById(R.id.profile_button);
         profileButton.setOnClickListener(listener -> {
             Intent toMenu = new Intent(this, ProfileActivity.class);
             startActivity(toMenu);
+            finish();
         });
     }
 }
