@@ -27,7 +27,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvGuest"
+        android:id="@+id/rvUser"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/homebutton"
+            android:id="@+id/home_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
@@ -60,21 +60,7 @@
             app:tint="@color/colorSecondary"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/preferencesButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            app:backgroundTint="@color/colorSecondary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/profileButton"
-            app:layout_constraintStart_toEndOf="@+id/homebutton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/preferences"
-            app:tint="@color/colorOnPrimary"
-            />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/profileButton"
+            android:id="@+id/profile_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="100dp"

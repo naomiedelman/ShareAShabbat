@@ -5,21 +5,32 @@ import com.google.firebase.firestore.PropertyName;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Guest {
+import java.util.Random;
+
+public class User {
     private String name;
     private int age;
     private String username;
-    private GuestType guestType;
-    private String location;
+    private UserType userType;
+    private int avatarIndex;
+    private final static int maxAvatarIndex = 8;
+    private final static int minAvatarIndex = 1;
 
-    public Guest() {
+    public User() {
     }
 
-    public Guest(String name, int age, String username, GuestType guestType) {
+    public User(String name, int age, String username, UserType userType, int avatarIndex) {
         this.name = name;
         this.age = age;
         this.username = username;
-        this.guestType = guestType;
+        this.userType = userType;
+        if (avatarIndex < 1) {
+            Random r = new Random();
+            this.avatarIndex = r.nextInt(maxAvatarIndex - minAvatarIndex + 1) + minAvatarIndex;
+        } else {
+            this.avatarIndex = avatarIndex;
+        }
+
     }
 
     @PropertyName("name")
@@ -30,6 +41,11 @@ public class Guest {
     @PropertyName("age")
     public String getAge() {
         return Integer.toString(this.age);
+    }
+
+    @PropertyName("avatarIndex")
+    public int getAvatarIndex() {
+        return this.avatarIndex;
     }
 
     @PropertyName("age")
@@ -43,9 +59,9 @@ public class Guest {
     }
 
 
-    @PropertyName("guestType")
+    @PropertyName("userType")
     public String getGuestType() {
-        switch (this.guestType) {
+        switch (this.userType) {
             case GUEST:
                 return "GUEST";
             case HOST:
@@ -60,16 +76,18 @@ public class Guest {
         obj.put("name", this.name);
         obj.put("age", this.age);
         obj.put("username", this.username);
-        obj.put("guestType", this.guestType);
+        obj.put("userType", this.userType);
+        obj.put("avatarIndex", this.avatarIndex);
         return obj;
     }
 
-    public static Guest deserialize(String rawGuest) throws JSONException {
+    public static User deserialize(String rawGuest) throws JSONException {
         JSONObject obj = new JSONObject(rawGuest);
         String name = obj.getString("name");
         int age = obj.getInt("age");
         String username = obj.getString("username");
-        GuestType guestType = GuestType.getGuestType(obj.getString("guestType"));
-        return new Guest(name, age, username, guestType);
+        UserType userType = UserType.getUserType(obj.getString("userType"));
+        int avatarIndex = obj.getInt("avatarIndex");
+        return new User(name, age, username, userType, avatarIndex);
     }
 }

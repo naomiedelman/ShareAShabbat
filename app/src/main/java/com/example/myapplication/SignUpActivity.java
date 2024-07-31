@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -11,18 +10,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.io.IOException;
-import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -64,7 +57,7 @@ public class SignUpActivity extends AppCompatActivity {
             int age = Integer.parseInt(ageEditText.getText().toString().trim());
             int userModeId = userMode.getCheckedRadioButtonId();
             RadioButton userModeSelected = findViewById(userModeId);
-            GuestType guestType = GuestType.getGuestType(userModeSelected.getText().toString().toLowerCase());
+            UserType userType = UserType.getUserType(userModeSelected.getText().toString().toLowerCase());
 
 
             if (!password.equals(confirmPassword)) {
@@ -72,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
                 return;
             }
 
-            register(username, password, name, age, guestType);
+            register(username, password, name, age, userType);
 
         });
 
@@ -81,28 +74,24 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void register(String username, String password, String name, int age, GuestType guestType) {
+    private void register(String username, String password, String name, int age, UserType userType) {
         // Assume validation passes
         auth.createUserWithEmailAndPassword(username, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         Log.d("SignUpActivity", "User creation successful");
 
-                        Guest newGuest = new Guest(name, age, username, guestType);
+                        User newUser = new User(name, age, username, userType, 0);
 
-                        db.collection("guests").document(username).set(newGuest)
+                        db.collection("users").document(username).set(newUser)
                                 .addOnSuccessListener(aVoid -> {
                                     Toast.makeText(SignUpActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
 
                                     // Create the Intent to start MainActivity
-                                    Intent mainActivityIntent = new Intent(SignUpActivity.this, UsersActivity.class);
-
-                                    // Put guest details as extras
-                                    mainActivityIntent.putExtra("name", name);
-                                    mainActivityIntent.putExtra("age", age);
+                                    Intent menu = new Intent(SignUpActivity.this, MenuActivity.class);
 
                                     // Start MainActivity
-                                    startActivity(mainActivityIntent);
+                                    startActivity(menu);
 
                                     finish();
                                 })

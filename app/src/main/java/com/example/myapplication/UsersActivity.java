@@ -1,12 +1,15 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -15,7 +18,7 @@ import java.util.List;
 
 public class UsersActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private GuestAdapter guestAdapter;
+    private UserAdapter userAdapter;
     private FirebaseFirestore db;
 
     @Override
@@ -23,23 +26,36 @@ public class UsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.users);
 
-        recyclerView = findViewById(R.id.rvGuest);
-        guestAdapter = new GuestAdapter();
-        recyclerView.setAdapter(guestAdapter);
+        recyclerView = findViewById(R.id.rvUser);
+        userAdapter = new UserAdapter();
+        recyclerView.setAdapter(userAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ConstraintLayout inner = findViewById(R.id.constraintLayout);
+        FloatingActionButton homeButton = inner.findViewById(R.id.home_button);
+        homeButton.setOnClickListener(listener -> {
+            Intent toMenu = new Intent(this, MenuActivity.class);
+            startActivity(toMenu);
+        });
+        FloatingActionButton profileButton = inner.findViewById(R.id.profile_button);
+        profileButton.setOnClickListener(listener -> {
+            Intent toMenu = new Intent(this, ProfileActivity.class);
+            startActivity(toMenu);
+        });
+
 
         db = FirebaseFirestore.getInstance();
         fetchGuests();
     }
 
     private void fetchGuests() {
-        db.collection("guests").get().addOnCompleteListener(task -> {
+        db.collection("users").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                List<Guest> guestList = new ArrayList<>();
+                List<User> userList = new ArrayList<>();
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    guestList.add(document.toObject(Guest.class));
+                    userList.add(document.toObject(User.class));
                 }
-                guestAdapter.setGuests(guestList);
+                userAdapter.setGuests(userList);
             } else {
                 Log.e("MainActivity", "Error fetching guests: ", task.getException());
             }

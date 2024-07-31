@@ -10,8 +10,6 @@ import org.json.JSONException;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private Bundle receivedBundle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,11 +24,15 @@ public class MenuActivity extends AppCompatActivity {
             Intent profileActivity = new Intent(this, ProfileActivity.class);
             Bundle receivedBundle = getIntent().getExtras();
             if (receivedBundle != null) {
-                Bundle b = receivedBundle.getBundle("guest");
-                String guest = b.getString("guest");
-                profileActivity.putExtra("guest", guest);
-                startActivity(profileActivity);
+                if (receivedBundle.containsKey("user")) {
+                    Bundle b = receivedBundle.getBundle("user");
+                    if (b.containsKey("user")) {
+                        String user = b.getString("user");
+                        profileActivity.putExtra("user", user);
+                    }
+                }
             }
+            startActivity(profileActivity);
         });
     }
 }

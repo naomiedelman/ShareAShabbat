@@ -1,6 +1,6 @@
 package com.example.myapplication;
 
-public enum GuestType {
+public enum UserType {
     HOST,
     GUEST;
 
@@ -11,11 +11,11 @@ public enum GuestType {
         GUEST.inverse = "guest";
     }
 
-    public String getInverseGuestType() {
+    public String getInverseUserType() {
         return inverse;
     }
 
-    public static GuestType getGuestType(String s) {
+    public static UserType getUserType(String s) {
         switch (s) {
             case "host":
                 return HOST;
